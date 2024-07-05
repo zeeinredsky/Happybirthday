@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Countdown</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #FFB6C1; /* Light Pink */
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background-color: #FFFFFF; /* White */
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #8BC34A; /* Light Green */
+      margin-bottom: 20px;
+    }
+    #timer {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #FF69B4; /* Deep Pink */
+      margin-bottom: 20px;
+    }
+    #birthday-message {
+      font-size: 2rem;
+      color: #FF1493; /* Deep Pink */
+      display: none;
+    }
+    .button {
+      display: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #8BC34A; /* Light Green */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #4CAF50; /* Green */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Birthday Countdown</h1>
+    <div id="timer"></div>
+    <div id="birthday-message">HAPPY BIRTHDAY!</div>
+    <button id="birthday-link" class="button" onclick="sendLove()">Read Birthday Message</button>
+  </div>
+
+  <script>
+    const birthdayDate = new Date("2024-07-06T00:00:00.000Z"); // set the birthday date and time in UTC
+    const timerElement = document.getElementById("timer");
+    const birthdayMessageElement = document.getElementById("birthday-message");
+    const birthdayLinkButton = document.getElementById("birthday-link");
+
+    function updateTimer() {
+      const now = new Date();
+      const timeDiff = birthdayDate.getTime() - now.getTime();
+      if (timeDiff <= 0) {
+        timerElement.innerHTML = "";
+        birthdayMessageElement.style.display = "block";
+        birthdayLinkButton.style.display = "inline-block"; // Show the button to read the message
+        clearInterval(timerInterval); // Stop updating the timer
+        window.location.href = "birthday_message.html"; // Redirect to another page with birthday message
+      } else {
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        timerElement.innerHTML = `Time until birthday: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+      }
+    }
+
+    function sendLove() {
+      alert("Sending lots of love and best wishes to you! Happy Birthday!");
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000); // Update the timer every second
+  </script>
+</body>
+</html>
